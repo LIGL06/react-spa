@@ -1,26 +1,31 @@
+// Dependencies
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux'; 
+import { createBrowserHistory } from 'history';
+import { MuiThemeProvider } from '@material-ui/core/styles'
+// Store
+import configureStore from "./config/store";
+// Styles
+import theme from './config/theme';
+// Constants
+const history = createBrowserHistory();
+const store = configureStore();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <div className="App">
+        <Router history={history}>
+          <Switch>
+            <Route path="/login" />
+            <Route path="/sign-up" />
+            <Route path="/" />
+          </Switch>
+        </Router>
+      </div>
+    </MuiThemeProvider>
+  </Provider>
+);
 
 export default App;
